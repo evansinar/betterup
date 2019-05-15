@@ -1,0 +1,67 @@
+library(lubridate)
+library(ggplot2)
+library(dplyr)
+library(data.table)
+library(ggrepel)
+library(tidyverse)
+library(ggmap)
+library(stringr)
+library(viridis)
+library(readr)
+
+# IMPORT CSV DATA
+
+sf_crime <- read_csv('https://sharpsightlabs.com/datasets/sf_crime-data-2017.csv'
+                     ,col_names = c('incident_number'
+                                    ,'crime_category'
+                                    ,'crime_description'
+                                    ,'day_of_week'
+                                    ,'date'
+                                    ,'time'
+                                    ,'police_district'
+                                    ,'resolution'
+                                    ,'address'
+                                    ,'lon'
+                                    ,'lat'
+                                    ,'location'
+                                    ,'PdId'
+                     )
+                     ,skip = 1
+)
+
+# PLOT SCATTERPLOT
+# - we'll do this as a quick data-check
+ggplot() +
+  geom_point(data = sf_crime, aes(x = lon, y = lat), alpha = .05)
+
+library(ggmap)
+
+register_google(key = "[yourkeyhere]")
+
+# GET MAP
+map_sf <- get_map('San Francisco', zoom = 12, maptype = 'satellite')
+
+# PLOT BASIC SF MAP
+ggmap(map_sf)
+
+#Address 1200 Folsom Street County San Francisco City and County
+#City San Francisco Country USA
+#State California Latitude 37.7749909
+#Zipcode 94103 Longitude -122.4104331
+
+geom_point(aes(x = Longitude, y = Latitude,  colour = Initial.Type.Group), data = i2, size = 0.5) + 
+  theme(legend.position="bottom")
+
+ggmap(map_sf) + geom_point(aes(x = -122.4104331, y = 37.7749909), size = 1) + 
+  theme(legend.position="bottom") +
+  stat_density2d(data = sf_crime, aes(x = lon, y = lat, fill = ..density..), geom = 'tile', contour = F, alpha = .5) +
+  scale_fill_viridis(option = 'inferno')
+  +
+  theme(text = element_text(color = "#444444")
+        ,plot.title = element_text(size = 22, face = 'bold')
+        ,plot.subtitle = element_text(size = 12)
+        ,axis.text = element_blank()
+        ,axis.title = element_blank()
+        ,axis.ticks = element_blank()
+  ) +
+  guides(fill = guide_legend(override.aes= list(alpha = 1)))
