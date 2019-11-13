@@ -1,0 +1,38 @@
+library(questionr)
+library(TeachingDemos)
+
+remove(list = ls())
+
+topics_ID <- read.csv(file="datafiles/Session Coding and ID Variables.csv", header=TRUE, sep=",")
+
+attach(topics_ID)
+
+txtStart("Topic Dataset Frequencies.txt", commands=TRUE, results=TRUE, append=FALSE)
+
+questionr::freq(topics_ID$topic_name, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$theme_name, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$job_function, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$role_transition, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$helped_manage_change, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$impacted_by_changes_work, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$working_toward_change, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$uncertainty_work, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$level_of_responsibility, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$general_goal, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$categorize_primary_goal, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$goal_desc_label, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$plan_coaching, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$level, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$Industry1, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$company_size, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$accountability_vs_autonomy, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$focused_vs_explorative, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$Industry2, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$Fortune.Rank, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$Account.Type, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$Products, cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$Business.Challenge..Primary..Filter., cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$Population..Primary..Filter., cum = TRUE, sort = 'dec', total = TRUE)
+questionr::freq(topics_ID$Use.Case..Primary., cum = TRUE, sort = 'dec', total = TRUE)
+
+txtStop()
